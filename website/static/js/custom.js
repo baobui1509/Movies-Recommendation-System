@@ -128,9 +128,31 @@ if (resultsElm){
     
 }
 
-// function scrollToResults() {
-//   window.location.hash = "#results"; 
-// }
+document.addEventListener("DOMContentLoaded", function () {
+  var embedContainer = document.getElementById("embedContainer");
+  if (embedContainer){
+    var embedConfig = {
+      type: "dashboard", 
+      id: "YourReportId",
+      embedUrl: "https://app.powerbi.com/reportEmbed?reportId=YourReportId&groupId=YourGroupId",
+      accessToken: "YourAccessToken", 
+      tokenType: 1, 
+      settings: {
+          panes: {
+              filters: {
+                  visible: false
+              },
+              pageNavigation: {
+                  visible: true
+              }
+          }
+      }
+  };
+
+    var powerbi = window.powerbi;
+    powerbi.embed(embedContainer, embedConfig);
+  }
+});
 
 
 

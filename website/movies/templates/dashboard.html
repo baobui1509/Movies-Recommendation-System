@@ -165,7 +165,7 @@
           <div class="collapse navbar-collapse" id="sidebar-menu">
             <ul class="navbar-nav pt-lg-3">
               <li class="nav-item">
-                <a class="nav-link"  href="{% url 'dashboard' %}">
+                <a class="nav-link" href="{% url 'dashboard' %}">
                   <span class="nav-link-icon d-md-none d-lg-inline-block">
                     <!-- Home icon from Tabler Icons -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -200,165 +200,15 @@
           </div>
         </div>
       </aside>
-      <div  class="page-wrapper">
-        <!-- Page header -->
-        <div class="page-header d-print-none">
-          <div class="container-xl">
-            <div class="row g-2 align-items-center">
-              <div class="col">
-                <!-- Page pre-title -->
-                <div class="page-pretitle text-muted">
-                  
-                </div>
-                <h2 class="page-title">
-                  <span class="highlight">Movies</span> Recommendation
-                </h2>
-              
-              </div>
-              <!-- Page title actions -->
-              <div class="col-auto ms-auto d-flex align-items-center">
-                <div class="btn-list">
-                  <span class="d-none d-sm-inline">
-                    <a href="#" class="btn btn-outline-secondary">
-                      New Movie
-                    </a>
-                  </span>
-                  <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M12 5l0 14" />
-                      <path d="M5 12l14 0" />
-                    </svg>
-                    Create New Movie
-                  </a>
-                  <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal" data-bs-target="#modal-report" aria-label="Create new report">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M12 5l0 14" />
-                      <path d="M5 12l14 0" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-        <!-- Slider -->
-        <div class="page-body">
-          <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-              {% for movie in sliders %}
-                <div class="swiper-slide">
-                  <img src="{{movie.Poster}}" alt="Movie 1" class="poster-image">
-                    <div class="movie-info">
-                      <h3>
-                        <a href='https://www.imdb.com/title/{{movie.imdbID}}/' target="_blank" rel="noopener noreferrer" class="movie-link">{{ movie.Title }}</a>
-                      </h3>
-                      <ul>
-                        <li><i class="fas fa-film"></i> {{movie.Genre}}</li>
-                        <li><i class="far fa-clock"></i> {{movie.Runtime}}</li>
-                        <li><i class="fas fa-globe-asia"></i> {{movie.Country}}</li>
-                        <li><i class="fas fa-user"></i> {{movie.Actors}}</li>
-                      </ul>
-                    </div>
-                </div>
-              {% endfor %}
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-          </div>
-          
-          
-          <div class="container-xl">
+      <div   class="page-wrapper">
+          <div id="embedContainer" class="container-xl">
             <div class="container-fluid">
-              <form method='POST' class="card shadow-lg border-0 rounded-4 p-4" style="background-color: #f8f9fa;" id="searchForm">
-                {% csrf_token %}
-                <div class="card-body">
-                  <h3 class="card-title fw-bold mb-4">🎬 Favorite Movie</h3>
-                  <div class="row row-cards align-items-end gy-3">
-                    <!-- Hàng trên: Tên phim và Sắp xếp theo -->
-                    <div class="col-md-8">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Name</label>
-                            <input name='name' type="text" class="form-control rounded-pill" placeholder="Enter movie name">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Sorted by</label>
-                            <select name='sorted_by' class="form-control form-select rounded-pill">
-                                <option value="imdbRating">IMDB</option>
-                                <option value="Year">Year</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- Hàng dưới: Thể loại -->
-                    <div class="col-12">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Genre</label>
-                            <input name="genre" id="genre" class="tagify__dropdown tagify__dropdown__item tagify--tag form-control rounded-pill" placeholder="Enter genre" value="" autocomplete="off">
-                            <button class="btn-primary tags--removeAllBtn" type="button">Remove</button>
-                        </div>  
-                    </div>
-                
-                    <!-- Nút Submit -->
-                    <div class="col-12">
-                        <button id='submitButton' type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold">
-                            Search 🎥
-                        </button>
-                    </div>
-                </div>
-                
-                </div>
-              </form>
-              
-              
-              <!-- end row -->
-
-              <div class="container mt-4" >
-                <div class="row movie-grid" id='results'>
-                  {% if empty == False %}
-                    {% for movie in movies|slice:":9" %}
-                      <div class="col-md-4">
-                        <div class="card">
-                          <img src="{{ movie.Poster }}" alt="" class="card-img-top">
-                          <div class="card-body">
-                            <h3 class="card-title">
-                              <a href='https://www.imdb.com/title/{{movie.imdbID}}/' target="_blank" rel="noopener noreferrer" class="movie-link">{{ movie.Title }}</a>
-                            </h3>
-                            <p class="text-muted">
-                              {% for genre in movie.Genre %}
-                                  {{ genre|capfirst }}{% if not forloop.last %}, {% endif %}
-                              {% endfor %}
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                              <span class="text-danger">
-                                <i class="fa fa-heart"></i> {{ movie.imdbVotes|intcomma }}
-                              </span>
-                              <span class="text-primary">
-                                <i class="fa fa-star"></i> {{ movie.imdbRating }}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    <div class="no-results-container">
-                      <h2 class="no-results-title">No Results Found</h2>
-                      <p class="no-results-message">Sorry, we couldn't find any movies matching your search criteria.</p>
-                      <a href="{% url 'recommend_index'%}" class="btn btn-primary no-results-button">Try Again</a>
-                    </div>
-                  {% endif %}
-                </div>
+              <iframe 
+                <div class="tableau-dashboard">
+                  <div class='tableauPlaceholder' id='viz1720687146610' style='position: relative'><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;VN&#47;VN_housing_price&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='VN_housing_price&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;VN&#47;VN_housing_price&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1720687146610');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='2577px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
               </div>
-              <!-- end row -->
-          </div>
+              </iframe>
+            </div>
           </div>
         </div>
       </div>
@@ -371,6 +221,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.32.1/tagify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/powerbi-client/dist/powerbi.min.js"></script>
     <script src="{% static 'js/custom.js' %}" defer></script>
     <script src="{% static 'dist/js/tabler.min.js' %}" defer></script>
     <script src="{% static 'dist/js/demo.min.js' %}" defer></script>

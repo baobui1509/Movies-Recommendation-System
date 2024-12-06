@@ -80,3 +80,7 @@ def recommend_index(request):
         'empty': empty,
         'sliders': sliders,
     })
+    
+def dashboard(request):
+    return render(request, 'dashboard.html', {
+    })
